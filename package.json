@@ -1,11 +1,26 @@
 {
   "name": "cs546final",
   "version": "1.0.0",
-  "description": "Final Project for CS546",
-  "main": "index.js",
+  "description": "final project for cs546: PetBlog",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CS546PetBlog/petblog.git"
+  },
+  "author": "Cassidy Savettiere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CS546PetBlog/petblog/issues"
+  },
+  "homepage": "https://github.com/CS546PetBlog/petblog#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.5",
+    "mongodb": "^4.5.0",
+    "uuid": "^8.3.2"
+  }
 }
