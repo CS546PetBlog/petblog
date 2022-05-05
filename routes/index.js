@@ -11,6 +11,11 @@ const constructorMethod = (app) => {
     app.use('/posts', postRoutes);
     app.use('/comments', commentRoutes);
     app.use('/ratings', ratingRoutes);
+
+    app.get("/", function(req, res) {
+        res.send("I am working!!!");
+    });
+
     app.use('*', (req, res) => {
         res.sendStatus(404);
     });
