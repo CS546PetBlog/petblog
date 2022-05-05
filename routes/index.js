@@ -4,15 +4,16 @@ const postRoutes = require('./posts');
 const commentRoutes = require('./comments');
 const ratingRoutes = require('./ratings');
 
-const constructorMethod = (app) => {
-    //app.use('/', idk);
-    app.use('/accounts', accountRoutes);
-    app.use('/pets', petRoutes);
-    app.use('/posts', postRoutes);
-    app.use('/comments', commentRoutes);
-    app.use('/ratings', ratingRoutes);
+const authorize = require("./authorize.js");
 
-    app.get("/", function(req, res) {
+const constructorMethod = (app) => {
+    app.use('/api/accounts', accountRoutes);
+    app.use('/api/pets', petRoutes);
+    app.use('/api/posts', postRoutes);
+    app.use('/api/comments', commentRoutes);
+    app.use('/api/ratings', ratingRoutes);
+
+    app.get("/", authorize, function(req, res) {
         res.send("I am working!!!");
     });
 

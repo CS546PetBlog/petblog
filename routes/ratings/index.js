@@ -1,6 +1,7 @@
 const router = require("express").Router();
+const authorize = require("../authorize.js");
 
-router.get("/", function(req, res) {
+router.get("/", authorize, function(req, res) {
     res.send("I am working!");
 })
 
