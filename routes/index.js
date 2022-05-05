@@ -5,8 +5,22 @@ const commentRoutes = require('./comments');
 const ratingRoutes = require('./ratings');
 
 const authorize = require("./authorize.js");
+const session = require('express-session');
+
+const {
+    genHashPassword,
+    compareHashPass,
+    genRandomPassword
+} = require("../crypto");
 
 const constructorMethod = (app) => {
+    app.use(session({
+        name: 'AuthCookie',
+        secret: genRandomPassword(),
+        resave: false,
+        saveUninitialized: true
+    }));
+
     app.use('/api/accounts', accountRoutes);
     app.use('/api/pets', petRoutes);
     app.use('/api/posts', postRoutes);
@@ -16,6 +30,24 @@ const constructorMethod = (app) => {
     app.get("/", authorize, function(req, res) {
         res.send("I am working!!!");
     });
+
+    app.get("/login", function(req, res) {
+        res.render("login/login");
+    })
+
+    app.post("/login", async function(req, res) {
+        // Temporary login creds
+        const tempAdminUsername = "admin";
+
+        // Password is password123
+        const tempAdminPasswordHash = "$2a$10$s54DPjUOd6KCqANHCo2bEOVvz7fhOSGWb5WYMxlYn6b1ZSZ/kyn3.";
+
+        if (await compareHashPass(req.body.password, tempAdminPasswordHash)) {
+            req.session.AuthCookie = req.body.username;
+            res.redirect("/api/accounts");
+            return;
+        }
+    })
 
     app.use('*', (req, res) => {
         res.sendStatus(404);
