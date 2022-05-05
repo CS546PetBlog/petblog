@@ -42,10 +42,13 @@ const constructorMethod = (app) => {
         // Password is password123
         const tempAdminPasswordHash = "$2a$10$s54DPjUOd6KCqANHCo2bEOVvz7fhOSGWb5WYMxlYn6b1ZSZ/kyn3.";
 
-        if (await compareHashPass(req.body.password, tempAdminPasswordHash)) {
+        if (tempAdminUsername == req.body.username && await compareHashPass(req.body.password, tempAdminPasswordHash)) {
             req.session.AuthCookie = req.body.username;
             res.redirect("/api/accounts");
             return;
+        }
+        else {
+            res.redirect("/login")
         }
     })
 
