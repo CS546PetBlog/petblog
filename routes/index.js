@@ -45,7 +45,7 @@ const constructorMethod = (app) => {
         if (tempAdminUsername == req.body.username && await compareHashPass(req.body.password, tempAdminPasswordHash)) {
             req.session.AuthCookie = req.body.username;
             res.redirect("/api/accounts");
-            // res.render("login/loggedin"); i think we need this to render the page once user logs in 
+          
             return;
         }
         else {
