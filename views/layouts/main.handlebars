@@ -1,37 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="/public/css/main.css">
+<head>
+    <meta charset="utf-8">
+    <title>Lab10</title>
+</head>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            {{title}}
-        </title>
-    </head>
-    <body>
-        <h1>
-            {{title}}
-        </h1>
-        {{!-- nav bar --}}
-            	<nav class="navbar background">
-		<ul class="nav-list">
-			<div class="logo">
-				<img src="http://clipart-library.com/images/BTgKA7eGc.gif">
-	<div class="topnav" id="myTopnav">
+<body>
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                {{{body}}}
+            </div>
+        </div>
+    </main>
+    <footer>Nicole Romero 10438134</footer>
+</body>
 
-    <a href="blog">Blog</a>
-    <a href="foster">Fosterable Animals</a>
-    <a href="signup">Signup</a>
-    <a href="login">Login</a>
-
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-</div>			
-	</nav>
-        {{{body}}}
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
-    <script src="/public/js/main.js"></script>
-    </body>
 </html>
