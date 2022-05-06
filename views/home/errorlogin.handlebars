@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {{title}}
+        </title>
+    </head>
+    <body>
+        <h1>
+            {{title}}
+        </h1>
+        {{!-- nav bar --}}
+            	<nav class="navbar background">
+		<ul class="nav-list">
+			<div class="logo">
+				<img src="http://clipart-library.com/images/BTgKA7eGc.gif">
+	<div class="topnav" id="myTopnav">
+    <h1>PetBlog: find or post a pet</h1>
+    <a href="signup">Signup</a>
+    <a href="/">Login</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>			
+	</nav>
+            <h1>Login:</h1>
+     {{#if err}}
+    <p class="show-not-found">Empty username or password</p>
+    {{/if}}
+    {{#if err1}}
+    <p class="error-not-found"> Password must be a valid string (no spaces, no empty spaces but can be any other character including special characters) and should be at least 6 characters long</p>
+    {{/if}}
+    {{#if err2}}
+    <p class="empty-search-box">UserName should be valid string (no empty spaces, no spaces in the username and only alphanumeric characters) and should be at least 4 characters long and should be case-insensitive </p>
+    {{/if}}
+    {{#if err3}}
+    <p class="empty-search-box"> Invalid UserName and/ or Password </p>
+    {{/if}}
+   
+        <form method="POST" action="/login" id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username">
+            <br>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" placeholder="Enter your password ">
+            <br>
+            <button class="button1" type="submit">Submit</button>
+            </form>
+  
+    <a href="/signup">SignUp!</a>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src="/public/js/main.js"></script>
+    </body>
+</html>
+  
+  

@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
       res.redirect('/private');
     }
   } catch (e) {
-    res.status(400).render('home/user', {
+    res.status(400).render('home/errorlogin', {
       layout: false,
       err3: true,
       error:
