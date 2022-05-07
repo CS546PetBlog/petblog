@@ -42,6 +42,12 @@ const constructorMethod = (app) => {
         res.render("login/login");
     })
 
+    app.get("/logout", function (req, res) {
+        res.render("login/logout");
+        res.clearCookie('AuthCookie');
+        req.session.destroy(); 
+    })
+
     app.post("/login", async function (req, res) {
         // Temporary login creds
         const account = await accounts.get(req.body.username);
