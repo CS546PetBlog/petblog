@@ -16,10 +16,15 @@ router.get("/", authorize, async function (req, res) {
     allPosts = allPosts.map(function(post) {
         var temp = post;
         temp.image = `/public/images/${post.image}`
+        temp.date = (new Date(post.date * 1000)).toString();
         return temp;
     })
     res.render("home/posts", {posts: allPosts});
 });
+
+router.get("/:id", authorize, async function(req, res) {
+    res.render("posts/display", {});
+})
 
 router.get("/create", authorize, async function (req, res) {
     res.render("posts/add");
