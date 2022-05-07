@@ -1,0 +1,27 @@
+<div>
+    <table class="table table-responsive">
+        <thead>
+            <th>User</th>
+            <th>Pet</th>
+            <th>Status</th>
+            <th>Comments</th>
+            <th>Pictures</th>
+            <th>date</th>
+        </thead>
+        <tbody>
+            {{#each posts}}
+            <tr>
+                <td>{{user}}</td>
+                <td>{{pet}}</td>
+                <td>{{status}}</td>
+                <td>{{status}}</td>
+
+                <td>{{comments}}</td>
+
+                <td>{{dateString date}}</td>
+
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
