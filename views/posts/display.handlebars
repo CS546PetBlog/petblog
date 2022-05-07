@@ -3,14 +3,12 @@
     <div class="post_header-content">
       <a href="/posts/?tag={{post.tag}}">{{post.tag}}</a>
       <h1 class="py-4 px-2 post_header-text">{{post.title}}</h1>
-      <p class="post_header-credits">By Ankit Phondani | {{getDate post.date}}</p>
     </div>
   </div>
 </div>
 <div class="post_spacer"></div>
 <div class="my-3 my-sm-4">
   <div class="post_body">{{{post.body}}}</div>
-  <p><small class="text-muted">Last updated &nbsp;{{getDate post.date}}</small></p>
 </div>
 
 <!-- comment -->
@@ -50,7 +48,6 @@
               </div>
               <div class="comment_body pt-2">
                 <p>{{{commentBody}}}</p>
-                <small class="text-muted">{{getDate createdAt}}</small>
               </div>
             </div>
           </div>
