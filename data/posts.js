@@ -31,7 +31,7 @@ const create = async function(username, title, filename, tag, body) {
 
 const getAll = async function() {
     const posts = await postsCollection();
-    return await posts.find({});
+    return await posts.find({}).toArray();;
 }
 
 module.exports = {

@@ -12,14 +12,11 @@
         <tbody>
             {{#each posts}}
             <tr>
-                <td>{{user}}</td>
-                <td>{{pet}}</td>
-                <td>{{status}}</td>
-
-                <td>{{comments}}</td>
-                <td>{{picture}}</td>
-                <td>{{dateString date}}</td>
-
+                <td>{{this.username}}</td>
+                <td><img src={{this.image}} /></td>
+                <td>{{this.title}}</td>
+                <td>{{this.tag}}</td>
+                <td>{{this.body}}</td>
             </tr>
             {{/each}}
         </tbody>

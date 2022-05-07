@@ -11,8 +11,14 @@ const upload = multer({
 });
 
 router.get("/", authorize, async function (req, res) {
-    const allPosts = posts.getAll();
-    res.render("home/posts");
+    var allPosts = await posts.getAll();
+
+    allPosts = allPosts.map(function(post) {
+        var temp = post;
+        temp.image = `/public/images/${post.image}`
+        return temp;
+    })
+    res.render("home/posts", {posts: allPosts});
 });
 
 router.get("/create", authorize, async function (req, res) {
