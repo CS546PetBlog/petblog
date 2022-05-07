@@ -1,7 +1,9 @@
 const userRoutes = require('./users');
 const privateRoutes = require('./private');
 const signupRoutes = require('./signup');
-const postsRoutes = require('./posts');
+const postRoutes = require('./posts');
+const petRoutes = require('./pets');
+
 
 
 const constructorMethod = (app) => {
@@ -9,6 +11,7 @@ const constructorMethod = (app) => {
   app.use('/private', privateRoutes);
   app.use('/signup', signupRoutes);
   app.use('/posts', postRoutes);
+  app.use('/pets', petRoutes);
 
   app.use('*', (req, res) => {
     res.sendStatus(404);

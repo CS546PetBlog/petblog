@@ -7,7 +7,7 @@ const users = data.users;
 router.get('/', function (req, res) {
     var username = req.session.user;
    console.log(req.session.user)
-    res.render('posts/add', {layout: false, username: username });
+    res.render('posts/tag', {layout: false, username: username });
   });
   
 module.exports = router;
