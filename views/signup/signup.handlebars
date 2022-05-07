@@ -1,12 +1,14 @@
 <div>
-    <h1>Sign-Up:</h1>
-    <form id="signup-form" method="POST" action="/signup">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-        <button id="signupButton" type="submit">Submit</button>
+    <h1>Sign Up</h1>
+    <p class="error">{{error}}</p>
+    <form method="POST" action="/signup" id="signup-form">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="Enter your username here...">
+        <br>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" placeholder="Enter your password here...">
+        <br>
+        <button class="button1" type="submit">Signup</button>
+        <a href="/">Already have an account? Click here to log in</a>
     </form>
-    <p>{{error}}</p>
-    {{!-- <a href="/login">Already have an account? Click here to log-in</a> --}}
 </div>
