@@ -5,8 +5,8 @@ const accountsCollection = mongoCollections.accounts;
 const validators = require("../validators");
 const crypto = require("../crypto");
 
-const create = async function create(username, password, name, bio) {
-    if (!validators.validString(username) || !validators.validString(password) || !validators.validString(name) || !validators.validString(bio)) {
+const create = async function create(username, password) {
+    if (!validators.validString(username) || !validators.validString(password)) {
         throw "Error: expected a string for inputs";
     }
     const accounts = await accountsCollection();
@@ -17,8 +17,8 @@ const create = async function create(username, password, name, bio) {
         const res = await accounts.insertOne({
             username: username,
             hashpass: hashpass,
-            name: name,
-            bio: bio,
+            name: null,
+            bio: null,
             picture: null
         });
 

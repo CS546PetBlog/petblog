@@ -18,5 +18,5 @@ module.exports = {
     pets: getCollectionFn('pet'),
     posts: getCollectionFn('post'),
     comments: getCollectionFn('comment'),
-    ratings: getCollectionFn('ratings')
+    ratings: getCollectionFn('rating')
 }
