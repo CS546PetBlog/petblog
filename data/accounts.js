@@ -1,13 +1,50 @@
+
 const mongoCollections = require('../config/mongoCollections');
-const accounts = mongoCollections.accounts;
-let { ObjectId } = require('mongodb');
-const { parse } = require('uuid');
+const accountsCollection = mongoCollections.accounts;
 
-const create = async function create(email, password, name, bio, picture) {
-    if (!email || !password || !name || !bio || !picture) throw 'Not all attributes of account were provided!';
+const validators = require("../validators");
+const crypto = require("../crypto");
 
-    if (typeof email != 'string' || typeof password != 'string' || typeof name != 'string' || typeof bio != 'string' || typeof picture != 'string')
-        throw 'Attributes of account must be of type String!';
+const create = async function create(username, password, name, bio) {
+    if (!validators.validString(username) || !validators.validString(password) || !validators.validString(name) || !validators.validString(bio)) {
+        throw "Error: expected a string for inputs";
+    }
+    const accounts = await accountsCollection();
+    const a_account = await accounts.findOne({username: username});
+
+    if (!a_account) {
+        const hashpass = await crypto.genHashPassword(password);
+        const res = await accounts.insertOne({
+            username: username,
+            hashpass: hashpass,
+            name: name,
+            bio: bio,
+            picture: null
+        });
+
+        if (res.insertedId) {
+            return {accountInserted: true}
+        }
+        else {
+            throw "Error: internal server error";
+        }
+    }
+
+    throw "Error: user already exists";
+}
+
+const get = async function(username) {
+    if (!validators.validString(username)) {
+        throw "Error: expected a string for inputs";
+    }
+    const accounts = await accountsCollection();
+    const a_account = await accounts.findOne({username: username});
+
+    return a_account;
+}
 
 
+module.exports = {
+    create,
+    get
 }

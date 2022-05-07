@@ -4,6 +4,8 @@ const postRoutes = require('./posts');
 const commentRoutes = require('./comments');
 const ratingRoutes = require('./ratings');
 
+const accounts = require("../data/accounts");
+
 const authorize = require("./authorize.js");
 const session = require('express-session');
 
@@ -20,7 +22,7 @@ const constructorMethod = (app) => {
         resave: false,
         saveUninitialized: true
     }));
-
+    
     app.use('/api/accounts', accountRoutes);
     app.use('/api/pets', petRoutes);
     app.use('/api/posts', postRoutes);
@@ -37,24 +39,46 @@ const constructorMethod = (app) => {
 
     app.post("/login", async function(req, res) {
         // Temporary login creds
-        const tempAdminUsername = "admin";
+        const account = await accounts.get(req.body.username);
 
-        // Password is password123
-        const tempAdminPasswordHash = "$2a$10$s54DPjUOd6KCqANHCo2bEOVvz7fhOSGWb5WYMxlYn6b1ZSZ/kyn3.";
-
-        if (tempAdminUsername == req.body.username && await compareHashPass(req.body.password, tempAdminPasswordHash)) {
+        if (account && await compareHashPass(req.body.password, account.hashpass)) {
             req.session.AuthCookie = req.body.username;
             res.redirect("/api/accounts");
-          
+            
             return;
         }
         else {
-            res.redirect("/login")
+            res.render("login/login", {error: "Username of Password is incorrect"});
         }
     })
 
     app.get("/signup", function(req, res) {
         res.render("signup/signup");
+    })
+
+    app.post("/signup", async function(req, res) {
+        try {
+            // TODO
+            // Add addition input forms for Bio, Name. Default picture to null until the user uploads their picture in their profile settings.
+            const result = await accounts.create(req.body.username, req.body.password, "1234", "1234", null)
+            if (result.accountInserted) {
+                // TODO
+                // Reder the landing page instead
+                res.redirect("/login");
+            }
+            else {
+                res.status(500).render("signup/signup", {error: "Internal server error"});
+            }
+        }
+        catch(e) {
+            console.log(e);
+            if (e == "Error: user already exists"){
+                res.status(400).render("signup/signup", {error: e});
+            }
+            else {
+                res.status(500).render("signup/signup", {error: "Internal server error"})
+            }
+        }
     })
 
     app.use('*', (req, res) => {
