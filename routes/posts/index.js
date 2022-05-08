@@ -43,11 +43,18 @@ router.get("/:id", authorize, async function(req, res) {
         a_post._id = a_post._id.toString();
         var postComments = await comments.getAll(req.params.id);
 
+        postComments = await Promise.all(postComments.map(async function(comment) {
+            var temp = comment;
+            temp.sum = await comments.sumLikes(comment._id.toString());
+            temp._id = comment._id.toString();
+            const rating = await comments.getRating(req.session.AuthCookie, comment._id.toString());
+            temp.rating = rating ? true : false;
+            return temp;
+        }));
+
         const sum = await posts.sumLikes(req.params.id);
         const rating = await posts.getRating(req.session.AuthCookie, req.params.id);
-        console.log(rating);
         const val = rating ? true : false;
-        console.log(val);
         res.render("posts/display", {post: a_post, comments: postComments, rating: val, ratingSum: sum});
     }
     catch (e) {
@@ -83,6 +90,7 @@ router.post("/:id/like", authorize, async function(req, res) {
         }
     }
     catch(e) {
+        console.log(e);
         res.render("error/error", {error: "Failed to like post", redirect: `/posts/${req.params.id}`})
     }
 });
@@ -93,6 +101,7 @@ router.post("/:id/unlike", authorize, async function(req, res) {
         res.redirect(`/posts/${req.params.id}`);
     }
     catch(e) {
+        console.log(e);
         res.render("error/error", {error: "Failed to unlike post", redirect: `/posts/${req.params.id}`})
     }
 });

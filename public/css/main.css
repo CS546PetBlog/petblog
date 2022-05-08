@@ -132,3 +132,8 @@ img {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
 }
+
+.rounded-circle {
+  max-width: 50px;
+  max-height: 50px;
+}
