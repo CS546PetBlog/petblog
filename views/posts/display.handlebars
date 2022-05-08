@@ -29,6 +29,18 @@
           <input class="btn btn-primary form-control" type="submit" value="POST">
         </form>
       </div>
+      <div class="show-ratings">
+        <h1>{{ratingSum}} likes</h1>
+        {{#if rating}}
+          <form action="/posts/{{post._id}}/unlike" method="POST">
+            <button type="submit">Unlike post</button>
+          </form>
+        {{else}}
+          <form action="/posts/{{post._id}}/like" method="POST">
+            <button type="submit">like post</button>
+          </form>
+        {{/if}}
+      </div>
       <div class="py-3" id="show-comments">
         <h1>Post Comments</h1>
         {{#each comments}}

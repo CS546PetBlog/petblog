@@ -1,7 +1,9 @@
 
+const { ObjectID } = require('bson');
 const { ObjectId } = require('mongodb');
 const mongoCollections = require('../config/mongoCollections');
 const postsCollection = mongoCollections.posts;
+const ratingsCollection = mongoCollections.ratings;
 
 const validators = require("../validators");
 
@@ -49,8 +51,63 @@ const get = async function(idStr) {
     return a_post;
 }
 
+const likePost = async function(username, postID) {
+    if (!validators.validString(username) || !validators.validID(postID)) {
+        throw "Error: invalid input";
+    }
+
+    const ratings = await ratingsCollection();
+    
+    const a_rating = await ratings.findOne({username: username, postID: new ObjectId(postID)});
+    if (!a_rating) {
+        const res = await ratings.insertOne({ username: username, postID: new ObjectId(postID) });
+        if (res.insertedId) {
+            return {ratingInserted: true}
+        }
+        else {
+            throw "Error: internal server error"
+        }
+    }
+
+    throw "Error: user already liked the post";
+}
+
+const unLikePost = async function(username, postID) {
+    if (!validators.validString(username) || !validators.validID(postID)) {
+        throw "Error: invalid input";
+    }
+
+    const ratings = await ratingsCollection();
+
+    await ratings.deleteMany({username: username, postID: new ObjectId(postID)});
+}
+
+const getRating = async function(username, postID) {
+    if (!validators.validString(username) || !validators.validID(postID)) {
+        throw "Error: invalid input";
+    }
+
+    const ratings = await ratingsCollection();
+    return await ratings.findOne({username: username, postID: new ObjectId(postID)});
+}
+
+const sumLikes = async function(postID) {
+    if (!validators.validID(postID)) {
+        throw "Error: invalid input";
+    }
+
+    const ratings = await ratingsCollection();
+
+    const allRatings = await ratings.find({postID: new ObjectId(postID)}).toArray();
+    return allRatings.length;
+}
+
 module.exports = {
     create,
     getAll,
-    get
+    get,
+    likePost,
+    unLikePost,
+    sumLikes,
+    getRating
 }

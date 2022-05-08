@@ -40,9 +40,15 @@ router.get("/:id", authorize, async function(req, res) {
         var a_post = await posts.get(req.params.id);
         a_post.image = `/public/images/${a_post.image}`
         a_post.commentURI = `/posts/${req.params.id}/comment`
-
+        a_post._id = a_post._id.toString();
         var postComments = await comments.getAll(req.params.id);
-        res.render("posts/display", {post: a_post, comments: postComments});
+
+        const sum = await posts.sumLikes(req.params.id);
+        const rating = await posts.getRating(req.session.AuthCookie, req.params.id);
+        console.log(rating);
+        const val = rating ? true : false;
+        console.log(val);
+        res.render("posts/display", {post: a_post, comments: postComments, rating: val, ratingSum: sum});
     }
     catch (e) {
         console.log(e);
@@ -52,7 +58,6 @@ router.get("/:id", authorize, async function(req, res) {
 
 router.post("/:id/comment", authorize, async function(req, res) {
     try {
-        console.log(req.session.AuthCookie, req.body.comment, req.params.id)
         var result = await comments.create(req.session.AuthCookie, req.params.id, req.body.comment);
         if (result.commentInserted) {
             res.redirect(`/posts/${req.params.id}`);
@@ -66,6 +71,31 @@ router.post("/:id/comment", authorize, async function(req, res) {
         res.render("error/error", {error: "Error: failed to post comment", redirect: `/${req.params.id}`})
     }
 })
+
+router.post("/:id/like", authorize, async function(req, res) {
+    try {
+        const result = await posts.likePost(req.session.AuthCookie, req.params.id);
+        if (result.ratingInserted) {
+            res.redirect(`/posts/${req.params.id}`);
+        }
+        else {
+            res.render("error/error", {error: "Failed to like post", redirect: `/posts/${req.params.id}`})
+        }
+    }
+    catch(e) {
+        res.render("error/error", {error: "Failed to like post", redirect: `/posts/${req.params.id}`})
+    }
+});
+
+router.post("/:id/unlike", authorize, async function(req, res) {
+    try {
+        const result = await posts.unLikePost(req.session.AuthCookie, req.params.id);
+        res.redirect(`/posts/${req.params.id}`);
+    }
+    catch(e) {
+        res.render("error/error", {error: "Failed to unlike post", redirect: `/posts/${req.params.id}`})
+    }
+});
 
 router.post('/create', authorize, upload.single('file'), async function(req, res) {
     if (!req.file) {
