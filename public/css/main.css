@@ -1,5 +1,5 @@
 body {
-  background: #94d4ff;
+  background: #DFDFD4;
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   font-size: 15pt;
 }
@@ -9,16 +9,7 @@ main {
   margin: auto;
 }
 
-header {
-  border-bottom: 1px solid #afafaf;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   color: #333;
   margin-bottom: 5px;
 }
@@ -52,20 +43,13 @@ p {
   line-height: 2;
 }
 
-.post {
-  width: 75%;
-  border-bottom: 1px dashed #333;
-}
-
-.navbar {
+.navbar-background {
   display: flex;
   align-items: center;
   justify-content: center;
   position: sticky;
   top: 0;
-  cursor: pointer;
 }
-
 
 .nav-list {
   width: 70%;
@@ -86,26 +70,15 @@ p {
   padding: 20px
 }
 
-.topnav {
-  overflow: hidden;
-  /* background-color: #9EB190; */
-}
-
 .topnav a {
   float: left;
   display: block;
-  color: #000000;
   font-weight: bold;
-  /*   color: #f2f2f2; */
+  color: #333;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 20px;
-}
-
-.active {
-  /* background-color: #15352A; */
-  color: rgb(0, 0, 0);
 }
 
 .topnav .icon {
@@ -114,8 +87,14 @@ p {
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #255dc6;
-  color: rgb(0, 0, 0);
+  background-color: #81BE1C;
+  /* color: rgb(0, 0, 0); */
+}
+
+a:active {
+  /* background-color: #42650b; */
+  background-color: aqua;
+  color: #d8efb5;
 }
 
 .error {
@@ -125,6 +104,11 @@ p {
 img {
   max-width: 200px;
   max-height: 200px;
+}
+
+.post {
+  width: 75%;
+  border-bottom: 1px dashed #333;
 }
 
 .comments_item {
