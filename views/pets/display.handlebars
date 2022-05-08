@@ -1,19 +1,20 @@
-<div class="post_header-img" style="background-image: url('{{post.images.imageUrl}}');">
+<div class="post_header-img">
+  <img src={{pet.image}} />
   <div class="post_header-content text-center">
     <div class="post_header-content">
-      <a href="/posts/?tag={{post.tag}}">{{post.tag}}</a>
-      <h1 class="py-4 px-2 post_header-text">{{post.title}}</h1>
+      <a href="/posts/?tag={{pet.tag}}">{{pet.tag}}</a>
+      <h1 class="py-4 px-2 post_header-text">{{pet.animalName}}</h1>
     </div>
   </div>
 </div>
 <div class="post_spacer"></div>
 <div class="my-3 my-sm-4">
-  <div class="post_body">{{{post.body}}}</div>
+  <div class="post_body">{{{pet.body}}}</div>
 
 </div>
 
 <!-- comments -->
-<div class="row">
+{{!-- <div class="row">
   <div class="col-md-10">
     <div id="post-comments">
 
@@ -62,4 +63,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}

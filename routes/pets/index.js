@@ -30,9 +30,9 @@ router.get("/:id", authorize, async function(req, res) {
     try {
         var a_pet = await pets.get(req.params.id);
         a_pet.image = `/public/images/${a_pet.image}`
-        a_pet.commentURI = `/posts/${req.params.id}/comment`
+        a_pet.commentURI = `/pets/${req.params.id}/comment`
 
-        res.render("posts/display", {pet: a_pet});
+        res.render("pets/display", {pet: a_pet});
     }
     catch (e) {
         console.log(e);
