@@ -111,13 +111,12 @@ img {
   border-bottom: 1px dashed #333;
 }
 
-.comments_item {
-  margin-top: 10px;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+.comment-card {
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+  width: 40%;
+  border-radius: 5px;
 }
 
-.rounded-circle {
-  max-width: 50px;
-  max-height: 50px;
+.comment-info {
+  padding: 2px 16px;
 }
