@@ -7,14 +7,24 @@
 
 <div id="show-comments">
   <h1>Post Comments</h1>
-    <div class="comment-card">
-      {{#each comments}}
-        <div class="comment-info">
-          <p class="comment-username">{{this.username}}</p>
-          <p>{{{this.comment}}}</p>
-        </div>
-      {{/each}}
+  <div class="comment-card">
+    {{#each comments}}
+    <div class="comment-info">
+      <p class="comment-username">{{this.username}}</p>
+      <p>{{{this.comment}}}</p>
+      <h1>{{this.sum}} likes</h1>
+      {{#if this.rating}}
+      <form action="/comments/{{this._id}}/unlike" method="POST">
+        <button type="submit">Unlike comment</button>
+      </form>
+      {{else}}
+      <form action="/comments/{{this._id}}/like" method="POST">
+        <button type="submit">Like comment</button>
+      </form>
+      {{/if}}
     </div>
+    {{/each}}
+  </div>
 </div>
 
 <br>
@@ -23,8 +33,8 @@
   <form action="/posts/{{post._id}}/comment" method="POST">
     <div class="form-group">
       <label for="#comment">Leave a Comment</label>
-      <textarea class="form-cont" id="comment" name="comment" type="text"
-        placeholder="Type Your Comment Here" rows="4" required></textarea>
+      <textarea class="form-cont" id="comment" name="comment" type="text" placeholder="Type Your Comment Here" rows="4"
+        required></textarea>
     </div>
     <input class="make-comment" type="submit" value="POST">
   </form>

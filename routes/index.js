@@ -1,15 +1,13 @@
-
-
-const accountRoutes = require('./accounts');
 const petRoutes = require('./pets');
 const postRoutes = require('./posts');
 const commentRoutes = require('./comments');
-const ratingRoutes = require('./ratings');
 
 const accounts = require("../data/accounts");
 
 const authorize = require("./authorize.js");
 const session = require('express-session');
+
+const validators = require("../validators");
 
 const {
     genHashPassword,
@@ -43,17 +41,24 @@ const constructorMethod = (app) => {
     })
 
     app.post("/login", async function (req, res) {
-        // Temporary login creds
-        const account = await accounts.get(req.body.username);
-
-        if (account && await compareHashPass(req.body.password, account.hashpass)) {
-            req.session.AuthCookie = req.body.username;
-            res.redirect("/posts");
-
-            return;
+        try {
+            if (!validators.validString(req.body.username) || !validators.validString(req.body.password)) {
+                throw "Error: expected a string for inputs";
+            }
+    
+            const account = await accounts.get(req.body.username);
+            if (account && await compareHashPass(req.body.password, account.hashpass)) {
+                req.session.AuthCookie = req.body.username;
+                res.redirect("/posts");
+    
+                return;
+            }
+            else {
+                res.render("login/login", { error: "Username of Password is incorrect" });
+            }
         }
-        else {
-            res.render("login/login", { error: "Username of Password is incorrect" });
+        catch(e) {
+            res.status(400).render("error/error", {error: e, redirect: "/"});
         }
     })
 
@@ -63,6 +68,10 @@ const constructorMethod = (app) => {
 
     app.post("/signup", async function (req, res) {
         try {
+            if (!validators.validString(req.body.username) || !validators.validString(req.body.password)) {
+                throw "Error: expected a string for inputs";
+            }
+
             const result = await accounts.create(req.body.username, req.body.password)
             if (result.accountInserted) {
                 res.redirect("/login");
