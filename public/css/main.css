@@ -100,6 +100,7 @@ a:active {
   color: red;
 }
 
+
 img {
   max-width: 200px;
   max-height: 200px;
@@ -118,4 +119,8 @@ img {
 
 .comment-info {
   padding: 2px 16px;
+}
+
+.comment-username {
+  font-weight: bold;
 }
