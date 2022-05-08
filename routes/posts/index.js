@@ -23,7 +23,7 @@ router.get("/", authorize, async function (req, res) {
 });
 
 router.get("/:id", authorize, async function(req, res) {
-    res.render("posts/display", {});
+    res.render("posts/add", {});
 })
 
 router.get("/create", authorize, async function (req, res) {
