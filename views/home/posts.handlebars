@@ -1,18 +1,18 @@
-       {{!-- nav bar --}}
-            	<nav class="navbar background">
-		<ul class="nav-list">
-			<div class="logo">
-				<img src="/public/images/BTgKA7eGc.gif">
-	<div class="topnav" id="myTopnav">
-    <h1>PetBlog: find or post a pet</h1>
-     <a href="/api/pets/create">Create a Fosterable Animal Post</a>
-    <a href="/posts"> All blog posts including pets</a>
-    <a href="/logout">Logout</a>
+{{!-- nav bar --}}
+<nav class="navbar background">
+    <ul class="nav-list">
+        <div class="logo">
+            <img src="/public/images/BTgKA7eGc.gif">
+            <div class="topnav" id="myTopnav">
+                <h1>PetBlog: find or post a pet</h1>
+                <a href="/api/pets/create">Create a Fosterable Animal Post</a>
+                <a href="/posts"> All blog posts including pets</a>
+                <a href="/logout">Logout</a>
 
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-</div>			
-	</nav>
-    <div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
+</nav>
+<div>
     <h1>All Blog Posts: </h1>
     <a href="posts/create">Create a new post</a>
     <table class="table table-responsive">
@@ -33,6 +33,9 @@
                 <td>{{this.tag}}</td>
                 <td>{{this.body}}</td>
                 <td>{{this.date}}</td>
+                <td>
+                    <a href={{this.link}}>View Post</a>
+                </td>
             </tr>
             {{/each}}
         </tbody>

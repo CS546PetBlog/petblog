@@ -43,9 +43,9 @@ const constructorMethod = (app) => {
     })
 
     app.get("/logout", function (req, res) {
-        res.render("login/logout");
         res.clearCookie('AuthCookie');
         req.session.destroy(); 
+        res.redirect("/");
     })
 
     app.post("/login", async function (req, res) {

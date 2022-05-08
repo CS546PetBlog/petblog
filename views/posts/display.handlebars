@@ -1,7 +1,8 @@
-<div class="post_header-img" style="background-image: url('{{post.images.imageUrl}}');">
+<div class="post_header-img">
+  <a href="/posts">Back to Posts</a>
+  <img src={{post.image}} />
   <div class="post_header-content text-center">
     <div class="post_header-content">
-      <a href="/posts/?tag={{post.tag}}">{{post.tag}}</a>
       <h1 class="py-4 px-2 post_header-text">{{post.title}}</h1>
     </div>
   </div>
@@ -19,25 +20,17 @@
 
       <div id="add-comment" class="bg-white p-4 border">
 
-        <form action="/posts/comment/{{post._id}}" method="POST">
-          <div class="form-group">
-            <label for="#name">Name</label>
-            <input class="form-control p-2" id="name" name="name" type="text" placeholder="Your Name" required>
-          </div>
-          <div class="form-group">
-            <label for="#email">Email</label>
-            <input class="form-control p-2" id="email" name="email" type="email" placeholder="Your Email" required>
-          </div>
+        <form action="/posts/{{post._id}}/comment" method="POST">
           <div class="form-group">
             <label for="#comment">Leave a Comment</label>
-            <textarea class="form-control p-2" id="comment" name="commentBody" type="text"
+            <textarea class="form-control p-2" id="comment" name="comment" type="text"
               placeholder="Your Comment Here" rows="4" required></textarea>
           </div>
           <input class="btn btn-primary form-control" type="submit" value="POST">
         </form>
       </div>
       <div class="py-3" id="show-comments">
-        {{#each post.comments}}
+        {{#each comments}}
         <div class="comments_item">
           <div class="card card-body my-3 d-flex flex-row">
             <div class="comment_user-img">
@@ -45,18 +38,13 @@
             </div>
             <div class="ml-4">
               <div class="comment_user-name">
-                <p>{{commentUser.name}}</p>
+                <p>{{this.username}}</p>
               </div>
               <div class="comment_body pt-2">
-                <p>{{{commentBody}}}</p>
+                <p>{{{this.comment}}}</p>
               </div>
             </div>
           </div>
-          {{#if ../user}}
-          <form action="/posts/comment/{{../post._id}}?c_id={{_id}}&_method=DELETE" method="POST">
-            <button class="comment_delete" type="submit"><i class="fa fa-trash"></i></button>
-          </form>
-          {{/if}}
         </div>
         {{/each}}
       </div>

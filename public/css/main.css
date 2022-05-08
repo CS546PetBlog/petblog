@@ -125,3 +125,7 @@ img {
   max-width: 200px;
   max-height: 200px;
  }
+
+ .comments_item {
+  border-bottom: 1px solid black;
+}

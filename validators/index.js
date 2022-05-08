@@ -1,3 +1,5 @@
+let { ObjectId } = require('mongodb');
+
 const validString = function(str) {
     if (str == null) {
         return false;
@@ -18,4 +20,16 @@ const validString = function(str) {
     return true;
 }
 
-module.exports = {validString};
+const validID = function(id) {
+    if (!validString(id)) {
+        return false;
+    }
+
+    if (!ObjectId.isValid(id)) {
+        return false;
+    }
+
+    return true;
+}
+
+module.exports = {validString, validID};

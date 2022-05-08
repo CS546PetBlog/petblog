@@ -1,4 +1,5 @@
 
+const { ObjectId } = require('mongodb');
 const mongoCollections = require('../config/mongoCollections');
 const postsCollection = mongoCollections.posts;
 
@@ -34,7 +35,22 @@ const getAll = async function() {
     return await posts.find({}).toArray();;
 }
 
+const get = async function(idStr) {
+    if (!validators.validID(idStr)) {
+        throw "Error: invalid input";
+    }
+
+    const posts = await postsCollection();
+    const a_post = await posts.findOne({_id: new ObjectId(idStr)});
+
+    if (!a_post) {
+        throw "Error: post does not exist";
+    }
+    return a_post;
+}
+
 module.exports = {
     create,
-    getAll
+    getAll,
+    get
 }
