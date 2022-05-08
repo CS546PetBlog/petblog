@@ -34,7 +34,7 @@ router.post("/", authorize, async function (req, res) {
         var query = {};
         req.body.name ? (validators.validString(req.body.name) ? query.animalName = req.body.name : true) : true;
         req.body.type ? (validators.validString(req.body.type) ? query.animalType = req.body.type : true) : true;
-        req.body.age ? (validators.validInt(req.body.age) ? query.animalAge = parseInt(req.body.age) : true) : true;
+        req.body.age ? (validators.validInt(parseInt(req.body.age)) ? query.animalAge = parseInt(req.body.age) : true) : true;
         req.body.zip ? (validators.validZip(req.body.zip) ? query.zipcode = req.body.zip : true) : true;
         req.body.tag ? (validators.validString(req.body.tag) ? query.tag = req.body.tag : true) : true;
 
@@ -117,7 +117,7 @@ router.post('/create', authorize, upload.single('file'), async function (req, re
         }
     }
     catch (e) {
-        if (e == "Error: invalid input") {
+        if (e == "Error: invalid input" || e == "Error: no file submited") {
             res.status(400).render("error/error", { error: e, redirect: "/pets" });
         }
         else {
@@ -143,7 +143,7 @@ router.post("/:id/transfer", authorize, async function (req, res) {
         res.redirect(`/pets/${req.params.id}`);
     }
     catch (e) {
-        if (e == "Error: invalid input" || e == "Error: user does not exist" || e == "Error: pet does not exist") {
+        if (e == "Error: invalid input" || e == "Error: user does not exist" || e == "Error: pet does not exist" || e == "Error: unauthorized") {
             res.status(400).render("error/error", { error: e, redirect: `/pets/${req.params.id}` });
         }
         else {

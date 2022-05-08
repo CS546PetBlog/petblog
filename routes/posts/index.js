@@ -16,28 +16,28 @@ const upload = multer({
 router.get("/", authorize, async function (req, res) {
     var allPosts = await posts.getAll();
 
-    allPosts = allPosts.map(function(post) {
+    allPosts = allPosts.map(function (post) {
         const postDate = new Date(post.date * 1000);
 
         var month = postDate.getUTCMonth() + 1;
         var day = postDate.getUTCDate();
         var year = postDate.getUTCFullYear();
 
-        const date = `${day}/${month}/${year} ${postDate.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})}`
+        const date = `${day}/${month}/${year} ${postDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`
         var temp = post;
         temp.image = `/public/images/${post.image}`
         temp.date = date;
         temp.link = `/posts/${post._id.toString()}`
         return temp;
     })
-    res.status(200).render("home/posts", {posts: allPosts});
+    res.status(200).render("home/posts", { posts: allPosts });
 });
 
 router.get("/create", authorize, async function (req, res) {
     res.status(200).render("posts/add");
 });
 
-router.get("/:id", authorize, async function(req, res) {
+router.get("/:id", authorize, async function (req, res) {
     try {
         if (!validators.validID(req.params.id)) {
             throw "Error: invalid id";
@@ -49,7 +49,7 @@ router.get("/:id", authorize, async function(req, res) {
         a_post._id = a_post._id.toString();
         var postComments = await comments.getAll(req.params.id);
 
-        postComments = await Promise.all(postComments.map(async function(comment) {
+        postComments = await Promise.all(postComments.map(async function (comment) {
             var temp = comment;
             temp.sum = await comments.sumLikes(comment._id.toString());
             temp._id = comment._id.toString();
@@ -61,19 +61,19 @@ router.get("/:id", authorize, async function(req, res) {
         const sum = await posts.sumLikes(req.params.id);
         const rating = await posts.getRating(req.session.AuthCookie, req.params.id);
         const val = rating ? true : false;
-        res.status(200).render("posts/display", {post: a_post, comments: postComments, rating: val, ratingSum: sum});
+        res.status(200).render("posts/display", { post: a_post, comments: postComments, rating: val, ratingSum: sum });
     }
     catch (e) {
         if (e == "Error: invalid input" || e == "Error: post does not exist") {
-            res.status(400).render("error/error", {error: e, redirect: "/posts"});
+            res.status(400).render("error/error", { error: e, redirect: "/posts" });
         }
         else {
-            res.status(500).render("error/error", {error: "Error: internal server error", redirect: "/posts"});
+            res.status(500).render("error/error", { error: "Error: internal server error", redirect: "/posts" });
         }
     }
 })
 
-router.post("/:id/comment", authorize, async function(req, res) {
+router.post("/:id/comment", authorize, async function (req, res) {
     try {
         if (!validators.validID(req.params.id) || !validators.validString(req.body.comment)) {
             throw "Error: invalid id";
@@ -87,17 +87,17 @@ router.post("/:id/comment", authorize, async function(req, res) {
             throw "Error: internal server error"
         }
     }
-    catch(e) {
+    catch (e) {
         if (e == "Error: invalid id" || e == "Error: invalid input" || e == "Error: post does not exist") {
-            res.status(400).render("error/error", {error: e, redirect: `/posts/${req.params.id}`})
+            res.status(400).render("error/error", { error: e, redirect: `/posts/${req.params.id}` })
         }
         else {
-            res.status(500).render("error/error", {error: "Error: internal server error", redirect: `/posts/${req.params.id}`})
+            res.status(500).render("error/error", { error: "Error: internal server error", redirect: `/posts/${req.params.id}` })
         }
     }
 })
 
-router.post("/:id/like", authorize, async function(req, res) {
+router.post("/:id/like", authorize, async function (req, res) {
     try {
         if (!validators.validID(req.params.id)) {
             throw "Error: invalid input";
@@ -108,20 +108,20 @@ router.post("/:id/like", authorize, async function(req, res) {
             res.redirect(`/posts/${req.params.id}`);
         }
         else {
-            res.status(200).render("error/error", {error: "Failed to like post", redirect: `/posts/${req.params.id}`})
+            res.status(200).render("error/error", { error: "Failed to like post", redirect: `/posts/${req.params.id}` })
         }
     }
-    catch(e) {
+    catch (e) {
         if (e == "Error: invalid input" || e == "Error: user already liked the post") {
-            res.status(400).render("error/error", {error: e, redirect: `/posts/${req.params.id}`})
+            res.status(400).render("error/error", { error: e, redirect: `/posts/${req.params.id}` })
         }
         else {
-            res.status(500).render("error/error", {error: "Error: internal server error", redirect: `/posts/${req.params.id}`})
+            res.status(500).render("error/error", { error: "Error: internal server error", redirect: `/posts/${req.params.id}` })
         }
     }
 });
 
-router.post("/:id/unlike", authorize, async function(req, res) {
+router.post("/:id/unlike", authorize, async function (req, res) {
     try {
         if (!validators.validID(req.params.id)) {
             throw "Error: invalid input";
@@ -130,21 +130,22 @@ router.post("/:id/unlike", authorize, async function(req, res) {
         const result = await posts.unLikePost(req.session.AuthCookie, req.params.id);
         res.redirect(`/posts/${req.params.id}`);
     }
-    catch(e) {
+    catch (e) {
         if (e == "Error: invalid input") {
-            res.status(400).render("error/error", {error: e, redirect: `/posts/${req.params.id}`})
+            res.status(400).render("error/error", { error: e, redirect: `/posts/${req.params.id}` })
         }
         else {
-            res.status(500).render("error/error", {error: "Error: internal server error", redirect: `/posts/${req.params.id}`})
+            res.status(500).render("error/error", { error: "Error: internal server error", redirect: `/posts/${req.params.id}` })
         }
     }
 });
 
-router.post('/create', authorize, upload.single('file'), async function(req, res) {
-    if (!req.file) {
-        throw "Error: no file submited"
-    } else {
-        try {
+router.post('/create', authorize, upload.single('file'), async function (req, res) {
+
+    try {
+        if (!req.file) {
+            throw "Error: no file submited"
+        } else {
             if (!validators.validString(req.session.AuthCookie) || !validators.validString(req.body.title) || !validators.validString(req.file.filename) || !validators.validString(req.body.tag) || !validators.validString(req.body.body)) {
                 throw "Error: invalid input";
             }
@@ -157,14 +158,13 @@ router.post('/create', authorize, upload.single('file'), async function(req, res
                 throw "Error: internal server error";
             }
         }
-        catch(e) {
-            console.log(e);
-            if (e == "Error: invalid input" || e == "Error: no file submited") {
-                res.status(400).render("posts/add", {error: e, redirect: "/posts"});
-            }
-            else {
-                res.status(500).render("posts/add", {error: "Error: internal server error", redirect: "/posts"});
-            }
+    }
+    catch (e) {
+        if (e == "Error: invalid input" || e == "Error: no file submited") {
+            res.status(400).render("posts/add", { error: e, redirect: "/posts" });
+        }
+        else {
+            res.status(500).render("posts/add", { error: "Error: internal server error", redirect: "/posts" });
         }
     }
 });
