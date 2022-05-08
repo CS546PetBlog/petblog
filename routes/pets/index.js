@@ -22,6 +22,24 @@ router.get("/", authorize, async function(req, res) {
     res.render("home/pets", {pets: allPets});
 })
 
+router.post("/", authorize, async function(req, res) {
+    var query = {};
+    req.body.name ? query.animalName = req.body.name : true;
+    req.body.type ? query.animalType = req.body.type : true;
+    req.body.age ? query.animalAge = req.body.age : true;
+    req.body.zip ? query.zipcode = req.body.zip : true;
+    req.body.tag ? query.tag = req.body.tag : true;
+
+    var allPets = await pets.getAll(query);
+    allPets = allPets.map(function(pet) {
+        var temp = pet;
+        temp.image = `/public/images/${pet.image}`
+        temp.link = `/pets/${pet._id.toString()}`
+        return temp;
+    })
+    res.render("home/pets", {pets: allPets});
+})
+
 router.get("/create", authorize, async function (req, res) {
     res.render("pets/add");
 });

@@ -41,9 +41,12 @@ const create = async function(username, animalName, animalType, animalAge, zipco
     }
 }
 
-const getAll = async function() {
+const getAll = async function(query) {
     const pets = await petsCollection();
-    return await pets.find({}).toArray();;
+    if (query && typeof query == "object") {
+        return await pets.find(query).toArray();
+    }
+    return await pets.find({}).toArray();
 }
 
 const get = async function(idStr) {

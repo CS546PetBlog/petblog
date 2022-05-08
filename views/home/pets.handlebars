@@ -15,6 +15,27 @@
 </nav>
 <div>
     <h1>All Pet Posts: </h1>
+    <h2>Perform Search</h2>
+    <form action="/pets" method="POST">
+        <label for="name">Animal Name</label>
+        <input type="text" name="name"/>
+
+        <label for="type">Animal Type</label>
+        <input type="text" name="type"/>
+
+        <label for="age">Animal Age</label>
+        <input type="text" name="age"/>
+
+        <label for="zip">Zipcode</label>
+        <input type="text" name="zip"/>
+
+        <label for="tag">Tag</label>
+        <input type="text" name="tag"/>
+
+        <button type="submit">Search</button>
+
+        <a href="/pets">Clear Filter</a>
+    </form>
     <a href="/pets/create">Create a new post</a>
     <table class="table table-responsive">
         <thead>
