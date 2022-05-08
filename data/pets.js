@@ -2,6 +2,7 @@
 const { ObjectId } = require('mongodb');
 const mongoCollections = require('../config/mongoCollections');
 const petsCollection = mongoCollections.pets;
+const accountsCollection = mongoCollections.accounts;
 
 const validators = require("../validators");
 
@@ -30,7 +31,8 @@ const create = async function(username, animalName, animalType, animalAge, zipco
         zipcode: zipcode,
         description: description,
         tag: tag,
-        image: image
+        image: image,
+        priorOwners: []
     });
 
     if (res.insertedId) {
@@ -63,8 +65,38 @@ const get = async function(idStr) {
     return a_pet;
 }
 
+const transferOwnership = async function(petID, newOwner) {
+    if (!validators.validID(petID) || !validators.validString(newOwner)) {
+        throw "Error: invalid input"
+    }
+
+    const pets = await petsCollection();
+    const accounts = await accountsCollection();
+
+    const a_account = await accounts.findOne({username: newOwner});
+    if (!a_account) {
+        throw "Error: user does not exist"
+    }
+
+    const a_pet = await pets.findOne({_id: new ObjectId(petID)});
+    if (!a_pet) {
+        throw "Error: pet does not exist";
+    }
+
+    const oldOwner = a_pet.username;
+    const result = await pets.updateOne(
+        {_id: new ObjectId(petID)},
+        {$set: {username: newOwner}, $push: {priorOwners: oldOwner}}
+    )
+    
+    if (result.modifiedCount) {
+        return true;
+    }
+}
+
 module.exports = {
     create,
     getAll,
-    get
+    get,
+    transferOwnership
 }

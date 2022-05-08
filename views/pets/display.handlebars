@@ -11,10 +11,25 @@
   </div>
   <div class="post_spacer"></div>
   <div class="my-3 my-sm-4">
+    <div>Owner: {{pet.username}}</div>
     <div>Type: {{pet.animalType}}</div>
     <div>Age: {{pet.animalAge}}</div>
     <div>Zip: {{pet.zipcode}}</div>
     <div>Tag: {{pet.tag}}</div>
     <div>Description: {{{pet.description}}}</div>
+
+    <h2>Previous Owners</h2>
+    {{#each pet.priorOwners}}
+      <p>{{this}}</p>
+
+    {{/each}}
+    <div>
+      <h2>Transfer Ownership</h2>
+      <form action="/pets/{{pet._id}}/transfer" method="POST">
+        <label for="newowner">New Owner</label>
+        <input type="text" name="newowner" />
+        <button type="submit">Transfer</button>
+      </form>
+    </div>
   </div>
 </div>
