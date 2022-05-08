@@ -85,8 +85,7 @@ p {
   display: none;
 }
 
-.topnav a:hover,
-.dropdown:hover .dropbtn {
+.topnav a:hover {
   background-color: #81BE1C;
   /* color: rgb(0, 0, 0); */
 }
