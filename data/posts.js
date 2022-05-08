@@ -23,7 +23,7 @@ const create = async function(username, title, filename, tag, body) {
     });
 
     if (res.insertedId) {
-        return {accountInserted: true}
+        return {postInserted: true}
     }
     else {
         throw "Error: internal server error";

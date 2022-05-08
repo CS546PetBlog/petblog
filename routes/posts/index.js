@@ -77,7 +77,12 @@ router.post('/create', authorize, upload.single('file'), async function(req, res
     } else {
         try {
             const result = await posts.create(req.session.AuthCookie, req.body.title, req.file.filename, req.body.Tag, req.body.body);
-            res.redirect("/posts");
+            if (postInserted) {
+                res.redirect("/posts");
+            }
+            else {
+                throw "Error: internal server error";
+            }
         }
         catch(e) {
             console.log(e);

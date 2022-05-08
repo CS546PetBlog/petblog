@@ -25,14 +25,7 @@ const constructorMethod = (app) => {
         saveUninitialized: true
     }));
     app.use('/posts', postRoutes);
-
-    // TODO
-    // ------------
-    app.use('/api/accounts', accountRoutes);
-    app.use('/api/pets', petRoutes);
-    app.use('/api/comments', commentRoutes);
-    app.use('/api/ratings', ratingRoutes);
-    // ------------
+    app.use('/pets', petRoutes);
 
     app.get("/", authorize, function (req, res) {
         res.send("I am working!!!");

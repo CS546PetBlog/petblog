@@ -15,29 +15,33 @@
     </ul>
 </nav>
 <div>
-    <h1>All Blog Posts: </h1>
-    <a href="posts/create">Create a new post</a>
+    <h1>All Pet Posts: </h1>
+    <a href="/pets/create">Create a new post</a>
     <table class="table table-responsive">
         <thead>
             <th>User</th>
-            <th>Pet</th>
-            <th>Status</th>
-            <th>Comments</th>
-            <th>Pictures</th>
-            <th>date</th>
+            <th>AnimalName</th>
+            <th>AnimalType</th>
+            <th>AnimalAge</th>
+            <th>Zipcode</th>
+            <th>Description</th>
+            <th>Tag</th>
+            <th>Image</th>
         </thead>
         <tbody>
-            {{#each posts}}
+            {{#each pets}}
             <tr>
                 <td>{{this.username}}</td>
-                <td><img src={{this.image}} /></td>
-                <td>{{this.title}}</td>
+                <td>{{this.animalName}}</td>
+                <td>{{this.animalType}}</td>
+                <td>{{this.animalAge}}</td>
+                <td>{{this.zipcode}}</td>
+                <td>{{this.description}}</td>
                 <td>{{this.tag}}</td>
-                <td>{{this.body}}</td>
-                <td>{{this.date}}</td>
                 <td>
                     <a href={{this.link}}>View Post</a>
                 </td>
+                <td><img src={{this.image}} /></td>
             </tr>
             {{/each}}
         </tbody>

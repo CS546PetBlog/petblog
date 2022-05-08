@@ -32,4 +32,37 @@ const validID = function(id) {
     return true;
 }
 
-module.exports = {validString, validID};
+const validInt = function(n) {
+    if (n == null) {
+        return false
+    }
+
+    if (!Number.isInteger(n)) {
+        return false;
+    }
+
+    return true;
+}
+
+const validZip = function(zip) {
+    if (zip == null) {
+        return false;
+    }
+
+    if (typeof zip != "string") {
+        return false;
+    }
+
+    if (zip.length != 5) {
+        return false;
+    }
+
+    for (var i = 0; i < zip.length; i++) {
+        if (isNaN(parseInt(zip[i]))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+module.exports = {validString, validID, validInt, validZip};
