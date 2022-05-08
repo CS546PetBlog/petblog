@@ -8,7 +8,6 @@
                 <a href="/posts"> Blog Posts</a>
                 <a href="/pets"> Animal Posts</a>
                 <a href="/logout">Logout</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
         </div>
     </ul>
@@ -16,47 +15,43 @@
 
 <h1>Add Pet Post</h1>
 <div>
-    <div>
-        <p class="error">{{error}}</p>
-        <form action="/pets/create" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="name">Pet Name</label>
-                <input class="form-control" id="title" type="text" name="name" placeholder=" Name of the Pet"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="type">Animal Type</label>
-                <input class="form-control" id="type" type="text" name="type" placeholder=" Type of the Pet"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="age">Pet Age</label>
-                <input class="form-control" id="age" type="number" name="age" placeholder=0
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="zip">Zipcode</label>
-                <input class="form-control" id="zip" type="text" name="zip" placeholder=" Zipcode"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="tag">Tag</label>
-                <input class="form-control" id="tag" type="text" name="tag" placeholder=" Tag"
-                    required>
-            </div>
-            <div class="form-group">
-                <label for="description">Pet Description </label>
-                <textarea class="input-group" id="description" name="description" rows="8"
-                    placeholder="Pet Description"></textarea>
-            </div>
+    <p class="error">{{error}}</p>
+    <form action="/pets/create" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Pet Name</label>
+            <input class="form-control" id="title" type="text" name="name" placeholder="Name of the Pet"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="type">Animal Type</label>
+            <input class="form-control" id="type" type="text" name="type" placeholder="Type of the Pet"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="age">Pet Age</label>
+            <input class="form-control" id="age" type="number" name="age" placeholder=0
+                required>
+        </div>
+        <div class="form-group">
+            <label for="zip">Zipcode</label>
+            <input class="form-control" id="zip" type="text" name="zip" placeholder="Zipcode"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="tag">Tag</label>
+            <input class="form-control" id="tag" type="text" name="tag" placeholder="Tag"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="description">Pet Description </label>
+            <textarea class="input-group" id="description" name="description" rows="8"
+                placeholder="Pet Description"></textarea>
+        </div>
 
-            <div class="d-flex flex-wrap justify-content-between">
-                <div class="form-group mr-3">
-                    <label class="mr-3" for="">Header Image</label>
-                    <input id="upload_file" class="d-none" name="file" type="file">
-                </div>
-            </div>
-            <input class="form-control btn btn-dark" type="submit" value="Post">
-        </form>
-    </div>
+        <div class="form-group">
+            <label class="pet-img" for="">Pet Image</label>
+            <input id="upload-file" class="d-none" name="file" type="file">
+        </div>
+        <input class="form-control" type="submit" value="Post">
+    </form>
 </div>
