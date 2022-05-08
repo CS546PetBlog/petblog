@@ -116,7 +116,7 @@ router.post('/create', authorize, upload.single('file'), async function(req, res
     } else {
         try {
             const result = await posts.create(req.session.AuthCookie, req.body.title, req.file.filename, req.body.Tag, req.body.body);
-            if (postInserted) {
+            if (result.postInserted) {
                 res.redirect("/posts");
             }
             else {
