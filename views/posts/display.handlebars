@@ -1,19 +1,8 @@
 <div class="post-header">
   <a href="/posts">Back to Posts</a>
-  <img src={{post.image}} />
   <h1 class="post">{{post.title}}</h1>
   <div class="post-body">{{{post.body}}}</div>
-</div>
-
-<div id="add-comment" class="post-comments">
-  <form action="/posts/{{post._id}}/comment" method="POST">
-    <div class="form-group">
-      <label for="#comment">Leave a Comment</label>
-      <textarea class="form-cont" id="comment" name="comment" type="text"
-        placeholder="Type Your Comment Here" rows="4" required></textarea>
-    </div>
-    <input class="make-comment" type="submit" value="POST">
-  </form>
+  <img src={{post.image}} />
 </div>
 
 <div id="show-comments">
@@ -26,4 +15,17 @@
         </div>
       {{/each}}
     </div>
+</div>
+
+<br>
+
+<div id="add-comment" class="post-comments">
+  <form action="/posts/{{post._id}}/comment" method="POST">
+    <div class="form-group">
+      <label for="#comment">Leave a Comment</label>
+      <textarea class="form-cont" id="comment" name="comment" type="text"
+        placeholder="Type Your Comment Here" rows="4" required></textarea>
+    </div>
+    <input class="make-comment" type="submit" value="POST">
+  </form>
 </div>
