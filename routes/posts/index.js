@@ -161,10 +161,10 @@ router.post('/create', authorize, upload.single('file'), async function (req, re
     }
     catch (e) {
         if (e == "Error: invalid input" || e == "Error: no file submited") {
-            res.status(400).render("posts/add", { error: e, redirect: "/posts" });
+            res.status(400).render("error/error", { error: e, redirect: "/posts" });
         }
         else {
-            res.status(500).render("posts/add", { error: "Error: internal server error", redirect: "/posts" });
+            res.status(500).render("error/error", { error: "Error: internal server error", redirect: "/posts" });
         }
     }
 });
