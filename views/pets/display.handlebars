@@ -1,4 +1,5 @@
 <div>
+
   <a href="/pets">Back to Pets</a>
   <div class="post-header">
     <h1 class="pet-name">{{pet.animalName}}</h1>
@@ -15,16 +16,39 @@
 
     <h2>Previous Owners</h2>
     {{#each pet.priorOwners}}
-      <p>{{this}}</p>
+    <p>{{this}}</p>
 
     {{/each}}
     <div>
       <h2>Transfer Ownership</h2>
-      <form action="/pets/{{pet._id}}/transfer" method="POST">
+      <form id="transferForm" action="/pets/{{pet._id}}/transfer" method="POST">
         <label for="newowner">New Owner</label>
-        <input type="text" name="newowner" />
+        <input type="text" name="newowner" id="newowner" />
         <button type="submit">Transfer</button>
       </form>
+      <p class="error" id="error"></p>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script>
+    // Needed to put javascript in here in order to grab the handlebars data
+    (function ($) {
+      var postID = {{post._id}};
+      $('#transferForm').submit(function (event) {
+        event.preventDefault();
+        var newowner = $('#newowner').val();
+
+        if (newowner.trim().length == 0) {
+          $("#error").text("Error: invalid input")
+          return;
+        }
+        $.ajax({
+          url: `/pets/${postID}/transfer`,
+          method: 'POST'
+        })
+      })
+
+    })(window.jQuery);
+  </script>
 </div>
