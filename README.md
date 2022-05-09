@@ -1,5 +1,10 @@
 # petblog
 
+.env configuration example:
+```
+MONGO_URI=mongodb+srv://username:password@domain.net
+```
+
 Install:
 `npm instal`
 
@@ -9,6 +14,8 @@ Seed:
 Deploy:
 `npm start`
 
+Github:
+`https://github.com/CS546PetBlog/petblog`
 
 
 We used the following libraries:
