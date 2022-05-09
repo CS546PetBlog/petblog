@@ -16,7 +16,7 @@
     <h1>Login: </h1>
     <form id="login-form" method="POST" action="/login">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" pattern="[A-Za-z]*" required>
+        <input type="text" id="username" name="username" pattern="[A-Za-z0-9]*" required>
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
         <button id="loginButton" type="submit">Log In</button>
