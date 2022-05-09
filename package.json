@@ -11,7 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/CS546PetBlog/petblog.git"
   },
-  "author": "Cassidy Savettiere",
+  "author": "Joseph Scalera, Cassidy Savettiere, Shreyas Keerthi, Nicole Romero",
+  "pledge": "I pledge my honor that I have abided by the Stevens Honor System",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CS546PetBlog/petblog/issues"

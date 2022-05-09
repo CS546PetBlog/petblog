@@ -1,4 +1,7 @@
 # petblog
+# Pledge: I pledge my honor that I have abided by the Stevens Honor System
+# Contributors: Joseph Scalera, Cassidy Savettiere, Shreyas Keerthi, Nicole Romero
+
 
 .env configuration example:
 ```
