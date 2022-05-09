@@ -4,7 +4,8 @@
   "description": "final project for cs546: PetBlog",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "node seed/restore.js"
   },
   "repository": {
     "type": "git",

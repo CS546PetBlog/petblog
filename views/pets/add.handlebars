@@ -19,38 +19,38 @@
     <form action="/pets/create" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Pet Name</label>
-            <input class="form-control" id="title" type="text" name="name" placeholder="Name of the Pet"
+            <input class="form-control" id="title" type="text" name="name" placeholder="Name of the Pet" pattern="[A-Za-z ]*"
                 required>
         </div>
         <div class="form-group">
             <label for="type">Animal Type</label>
-            <input class="form-control" id="type" type="text" name="type" placeholder="Type of the Pet"
+            <input class="form-control" id="type" type="text" name="type" placeholder="Type of the Pet" pattern="[A-Za-z]*"
                 required>
         </div>
         <div class="form-group">
             <label for="age">Pet Age</label>
-            <input class="form-control" id="age" type="number" name="age" placeholder=0
+            <input class="form-control" id="age" type="number" name="age" placeholder=0 pattern="[0-9]*"
                 required>
         </div>
         <div class="form-group">
             <label for="zip">Zipcode</label>
-            <input class="form-control" id="zip" type="text" name="zip" placeholder="Zipcode"
+            <input class="form-control" id="zip" type="text" name="zip" placeholder="Zipcode" pattern="[0-9]{5}"
                 required>
         </div>
         <div class="form-group">
             <label for="tag">Tag</label>
-            <input class="form-control" id="tag" type="text" name="tag" placeholder="Tag"
+            <input class="form-control" id="tag" type="text" name="tag" placeholder="Tag" pattern="[A-Za-z]*"
                 required>
         </div>
         <div class="form-group">
             <label for="description">Pet Description </label>
             <textarea class="input-group" id="description" name="description" rows="8"
-                placeholder="Pet Description"></textarea>
+                placeholder="Pet Description" required></textarea>
         </div>
 
         <div class="form-group">
             <label class="pet-img" for="">Pet Image</label>
-            <input id="upload-file" class="d-none" name="file" type="file">
+            <input id="upload-file" class="d-none" name="file" type="file" required>
         </div>
         <input class="form-control" type="submit" value="Post">
     </form>

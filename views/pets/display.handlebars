@@ -23,7 +23,7 @@
       <h2>Transfer Ownership</h2>
       <form id="transferForm" action="/pets/{{pet._id}}/transfer" method="POST">
         <label for="newowner">New Owner</label>
-        <input type="text" name="newowner" id="newowner" />
+        <input type="text" name="newowner" id="newowner" pattern="[A-Za-z]*"/>
         <button type="submit">Transfer</button>
       </form>
       <p class="error" id="error"></p>

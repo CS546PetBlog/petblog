@@ -19,21 +19,21 @@
     <form action="/posts/create" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Title</label>
-            <input class="form-control" id="title" type="text" name="title" placeholder="Title of the Post"
+            <input class="form-control" id="title" type="text" name="title" placeholder="Title of the Post" pattern="[A-Za-z ]*"
                 required>
         </div>
         <div class="form-group">
             <label for="tag">Tag</label>
-            <input class="form-control" id="Tag" type="text" name="tag" placeholder="tag" required>
+            <input class="form-control" id="Tag" type="text" name="tag" placeholder="tag" pattern="[A-Za-z]*" required>
         </div>
         <div class="form-group">
             <label for="post-body">Body </label>
             <textarea class="input-group" id="post-body" name="body" rows="20"
-                placeholder="Begin typing to create your post!"></textarea>
+                placeholder="Begin typing to create your post!" required></textarea>
         </div>
         <div class="form-group">
             <label class="form-group" for="">Post Image</label>
-            <input id="upload-file" class="d-none" name="file" type="file">
+            <input id="upload-file" class="d-none" name="file" type="file" required>
         </div>
         <input class="form-control" type="submit" value="Post">
     </form>

@@ -3,6 +3,18 @@
   <h1 class="post">{{post.title}}</h1>
   <div class="post-body">{{{post.body}}}</div>
   <img src={{post.image}} />
+  <div class="show-ratings">
+        <h1>{{ratingSum}} likes</h1>
+        {{#if rating}}
+          <form action="/posts/{{post._id}}/unlike" method="POST">
+            <button type="submit">Unlike post</button>
+          </form>
+        {{else}}
+          <form action="/posts/{{post._id}}/like" method="POST">
+            <button type="submit">like post</button>
+          </form>
+        {{/if}}
+      </div>
 </div>
 
 <div id="show-comments">

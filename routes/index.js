@@ -26,9 +26,9 @@ const constructorMethod = (app) => {
     app.use('/pets', petRoutes);
     app.use('/comments', commentRoutes);
 
-    app.get("/", authorize, function (req, res) {
-        res.send("I am working!!!");
-    });
+    app.get("/", function(req, res) {
+        res.redirect("/posts");
+    })
 
     app.get("/login", function (req, res) {
         res.render("login/login");
