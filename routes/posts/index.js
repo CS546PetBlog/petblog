@@ -19,11 +19,7 @@ router.get("/", authorize, async function (req, res) {
     allPosts = allPosts.map(function (post) {
         const postDate = new Date(post.date * 1000);
 
-        var month = postDate.getUTCMonth() + 1;
-        var day = postDate.getUTCDate();
-        var year = postDate.getUTCFullYear();
-
-        const date = `${day}/${month}/${year} ${postDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`
+        const date = `${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`
         var temp = post;
         temp.image = `/public/images/${post.image}`
         temp.date = date;
